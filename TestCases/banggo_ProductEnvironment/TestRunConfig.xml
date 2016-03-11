@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+	<interface name="MBgoSearchSrv" >
+		<scene>
+			<thread>400</thread>
+			<loop>500</loop>
+		</scene>	
+		<scene>
+			<thread>600</thread>
+			<loop>300</loop>
+		</scene>
+	</interface>  
+</TestPlan>
+
