@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+	<interface name="getAppLayoutInfo" >
+		<scene>
+			<thread>2</thread>
+			<loop>1</loop>
+		</scene>
+		<scene>
+			<thread>3</thread>
+			<loop>1</loop>
+		</scene>		
+	</interface>
+	<interface name="ProductFilter" >
+		<scene>
+			<thread>2</thread>
+			<loop>1</loop>
+		</scene>
+		<scene>
+			<thread>3</thread>
+			<loop>1</loop>
+		</scene>		
+	</interface>	
+</TestPlan>
