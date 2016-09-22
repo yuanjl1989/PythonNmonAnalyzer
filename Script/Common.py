@@ -217,9 +217,8 @@ def GetYAxis(listData,intEnd,intStep):
 		if fMax<=i:
 			fMax=i
 			break
-	listYAxis=range(fMin,fMax+intStep,intStep)
+	listYAxis=range(int(fMin),int(fMax)+intStep,intStep)
 	return listYAxis
-
 
 def GetCPUCount(strFile):
 	listData=FindDataByRegex(strFile,r'AAA,cpus,(.*)\n')

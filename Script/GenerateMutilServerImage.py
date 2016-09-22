@@ -19,7 +19,7 @@ for p in listPath:
 from Common import *
 
 
-
+# CreateSummaryImage(  51*.nmon,CPU_**,  Server_51*,png full path name)
 def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 	strYLabel=""
 	listData=[]
@@ -59,7 +59,44 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 			listData.append(dict)
 		intEnd=50000
 		intStep=500
+	elif strTitle.find("Disk_IO")>-1:
+		strYLabel="Disk IO (KB/s)"
+		for strFile,strName in zip(listFile,listLegend):
+			dictWrite=FieldData(strFile,"DISKWRITE")
+			listKey = []
+			listValue = []
+			for strKey in dictWrite.keys():
+				if strKey.find("Write")<0:
+					listKey.append(strKey)
+			for i in range(0,len(dictWrite[listKey[0]]),1):
+				fValue=0.0
+				for strKey in listKey:
+					fValue=fValue+string.atof(dictWrite[strKey][i])
+				listValue.append(round(fValue,1))
+			dict={}
+			dict["name"]=strName+"_DiskWrite"
+			dict["data"]=listValue
+			listData.append(dict)
 
+			dictRead = FieldData(strFile, "DISKREAD")
+			listKey = []
+			listValue = []
+			for strKey in dictRead.keys():
+				if strKey.find("Read")<0:
+					listKey.append(strKey)
+			for i in range(0, len(dictRead[listKey[0]]), 1):
+				fValue = 0.0
+				for strKey in listKey:
+					fValue=fValue + string.atof(dictRead[strKey][i])
+				listValue.append(round(fValue, 1))
+			dict = {}
+			dict["name"] = strName+"_DiskRead"
+			dict["data"] = listValue
+			listData.append(dict)
+		intEnd=100000
+		intStep=10000
+
+	# intTime这里实际上计算出了x轴时间的刻度数目,整数个15秒
 	intTime=GetTotalTime(listFile)
 	intDve=intTime/15
 	intMod=intTime%15
@@ -107,20 +144,31 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 def CreateSummaryImage_MutilServer():
 	listNmon=[]
 	listLegend=[]
+	# print dictPath["TestResults"]
 	for strPath,listFolder,listFile in os.walk(dictPath["TestResults"]):
 		for strIP in listIP:
 			listLegend.append('Server_'+strIP)
 			for strFile in listFile:
+				# print "1--" + strPath
+				# print "2--" + listFolder
+				# print "3--" + listFile
 				if strFile.startswith(strIP) and strFile.endswith(".nmon"):
 					listNmon.append(strPath+"/"+strFile)
+	# print listNmon
 
-	listTitle=["CPU_All_User","CPU_All_System","Memory_Free","Network_Total_IO"]
+	# listTitle=["CPU_All_User","CPU_All_System","Memory_Free","Network_Total_IO"]
+	listTitle=["CPU_All_User","CPU_All_System","Memory_Free","Network_Total_IO","Disk_IO"]
+	# listTitle=["Disk_IO"]
 	for strTitle in listTitle:
+		#CreateSummaryImage(51*.nmon,CPU_**,Server_51*,png full path name)
 		CreateSummaryImage(listNmon,strTitle,listLegend,dictPath["TestResults"]+"_".join(listIP)+"_"+strTitle+'.png')
 
 
 
 if __name__=='__main__':
+	# print sys.argv[1]
 	listIP=sys.argv[1].split(',')
+	# print listIP
 	dictPath={"TestResults":parentPath+"/TestResults/"}
+	# print dictPath
 	CreateSummaryImage_MutilServer()
