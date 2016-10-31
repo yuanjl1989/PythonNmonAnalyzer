@@ -152,8 +152,9 @@ def CreateSummaryImage_MutilServer():
 				# print "1--" + strPath
 				# print "2--" + listFolder
 				# print "3--" + listFile
-				if strFile.startswith(strIP) and strFile.endswith(".nmon"):
-					listNmon.append(strPath+"/"+strFile)
+				if strFile.startswith(strIP+"_") and strFile.endswith(".nmon"):
+					listNmon.append(strPath+strFile)
+					break
 	# print listNmon
 
 	# listTitle=["CPU_All_User","CPU_All_System","Memory_Free","Network_Total_IO"]
