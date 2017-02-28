@@ -36,8 +36,14 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 		strYLabel="Memory (%)"
 		listTotal=GetData_MutilFileSingleKey(listFile,listLegend,"MEM","memtotal")
 		listFree=GetData_MutilFileSingleKey(listFile,listLegend,"MEM","memfree")
-		for dictTotal,dictFree in zip(listTotal,listFree):
-			dictFree["data"]=[round(float(f)/float(t)*100,2) for t,f in zip(dictTotal["data"],dictFree["data"])]
+		listCached=GetData_MutilFileSingleKey(listFile,listLegend,"MEM","cached")
+		listBuffers=GetData_MutilFileSingleKey(listFile,listLegend,"MEM","buffers")
+		for dictTotal,dictFree,dictCached,dictBuffers in zip(listTotal,listFree,listCached,listBuffers):
+#			for t,f,c,b in zip(dictTotal["data"],dictFree["data"],dictCached["data"],dictBuffers["data"]):
+#				print "round(float(f)/float(t+c+b)*100,2)="+str(round(float(f)/float(t+c+b)*100,2))
+#				print "round(float(f)/float(t)*100,2)=" + str(round(float(f)/float(t)*100,2))
+			dictFree["data"] = [round(float(f) / float(t + c + b) * 100, 2) for t, f, c, b in zip(dictTotal["data"], dictFree["data"], dictCached["data"], dictBuffers["data"])]
+#			dictFree["data"]=[round(float(f)/float(t)*100,2) for t,f in zip(dictTotal["data"],dictFree["data"])]
 			listData.append(dictFree)
 	elif strTitle.find("Network_Total_IO")>-1:
 		strYLabel="Network IO (KB/s)"
