@@ -102,13 +102,12 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 		intEnd=100000
 		intStep=10000
 
-	# intTime这里实际上计算出了x轴时间的刻度数目,整数个15秒
-	intTime=GetTotalTime(listFile)
-	intDve=intTime/15
-	intMod=intTime%15
+	intTime=GetTotalTime(listFile)				#intTime一共有多少时间,单位秒，例如195s
+	intDve=intTime/15							#整数个15秒,例如195/15=13
+	intMod=intTime%15							#15秒的余数，例如195%15
 	if intMod!=0:
 		intTime=intTime-intMod+15
-	intPeriod=GetTimePeriod(listFile[0])
+	intPeriod=GetTimePeriod(listFile[0])		#
 	listYAxis=GetYAxis(listData,intEnd,intStep)
 
 	fig = plt.figure(figsize=(8,4))
@@ -136,6 +135,9 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 		#筛选数据
 		# data["data"]=data["data"][0::5]
 		# intPeriod=10
+#		print len(data["data"])
+#		print range(0,len(data["data"])*intPeriod,intPeriod)
+#		print np.array(range(0,len(data["data"])*intPeriod,intPeriod))
 		ax.plot(np.array(range(0,len(data["data"])*intPeriod,intPeriod)),np.array(data["data"],dtype=float),label=data["name"])
 
 	# if intMaxPercent>50:

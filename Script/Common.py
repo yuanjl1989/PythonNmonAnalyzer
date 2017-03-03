@@ -80,7 +80,7 @@ def ReadCSVAsList(strFile):
 ##---------------------CVS file---------------------
 
 
-##---------------------Regex---------------------
+##---------------------Regex---------------------listData=FindDataByRegex(strFile,r'-s (.*) -c')
 def FindDataByRegex(strFile,pattern):
 	listData=re.findall(pattern,ReadFileAsString(strFile))
 	return listData
