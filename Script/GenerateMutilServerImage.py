@@ -64,7 +64,7 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 			dict["data"]=listValue
 			listData.append(dict)
 		intEnd=50000
-		intStep=500
+		intStep=5000
 	elif strTitle.find("Disk_IO")>-1:
 		strYLabel="Disk IO (KB/s)"
 		for strFile,strName in zip(listFile,listLegend):
@@ -100,7 +100,7 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 			dict["data"] = listValue
 			listData.append(dict)
 		intEnd=100000
-		intStep=10000
+		intStep=20000
 
 	intTime=GetTotalTime(listFile)				#intTime一共有多少时间,单位秒，例如195s
 	intDve=intTime/15							#整数个15秒,例如195/15=13
