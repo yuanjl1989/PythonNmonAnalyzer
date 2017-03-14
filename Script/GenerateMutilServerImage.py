@@ -42,7 +42,8 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 #			for t,f,c,b in zip(dictTotal["data"],dictFree["data"],dictCached["data"],dictBuffers["data"]):
 #				print "round(float(f)/float(t+c+b)*100,2)="+str(round(float(f)/float(t+c+b)*100,2))
 #				print "round(float(f)/float(t)*100,2)=" + str(round(float(f)/float(t)*100,2))
-			dictFree["data"] = [round(float(f) / float(t + c + b) * 100, 2) for t, f, c, b in zip(dictTotal["data"], dictFree["data"], dictCached["data"], dictBuffers["data"])]
+#			dictFree["data"] = [round(float(f) / float(t + c + b) * 100, 2) for t, f, c, b in zip(dictTotal["data"], dictFree["data"], dictCached["data"], dictBuffers["data"])]
+			dictFree["data"] = [round(float(f + c + b) / float(t) * 100, 2) for t, f, c, b in zip(dictTotal["data"], dictFree["data"], dictCached["data"], dictBuffers["data"])]
 #			dictFree["data"]=[round(float(f)/float(t)*100,2) for t,f in zip(dictTotal["data"],dictFree["data"])]
 			listData.append(dictFree)
 	elif strTitle.find("Network_Total_IO")>-1:

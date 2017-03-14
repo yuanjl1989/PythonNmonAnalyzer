@@ -94,9 +94,9 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 	for data in listData:
 		listTemp.append(min(data["data"]))
 		listTemp.append(max(data["data"]))
-	if(listTemp[1]/listTemp[0]) > 10000:
-		intEnd = 10000
-		intStep = 2000
+#	if(listTemp[1]/listTemp[0]) > 10000:
+	intEnd = 10000
+	intStep = 2000
 	listYAxis = GetYAxis(listData, intEnd, intStep)
 
 	fig = plt.figure(figsize=(8, 4))
