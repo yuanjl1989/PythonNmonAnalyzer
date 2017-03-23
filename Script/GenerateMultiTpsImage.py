@@ -102,6 +102,7 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 		intStep = 100
 	listYAxis = GetYAxis(listData, intEnd, intStep)
 
+
 	fig = plt.figure(figsize=(8, 4))
 	ax = fig.add_axes([0.1, 0.16, 0.6, 0.75])
 	ax.set_title(strTitle, size=14)
