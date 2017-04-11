@@ -94,7 +94,9 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 	for data in listData:
 		listTemp.append(min(data["data"]))
 		listTemp.append(max(data["data"]))
-	if(listTemp[1]/listTemp[0]) > 10000:
+	if abs(listTemp[0] - 0) < 0.00001:
+		listTemp[0] = 1
+	if (listTemp[1]/listTemp[0]) > 10000:
 		intEnd = 10000
 		intStep = 2000
 	else:
