@@ -100,6 +100,22 @@ def CreateSummaryImage(listFile,strTitle,listLegend,strImage):
 			dict["name"] = strName+"_DiskRead"
 			dict["data"] = listValue
 			listData.append(dict)
+			
+			dictRead = FieldData(strFile, "DISKXFER")
+			listKey = []
+			listValue = []
+			for strKey in dictRead.keys():
+				if strKey.find("transfers")<0:
+					listKey.append(strKey)
+			for i in range(0, len(dictRead[listKey[0]]), 1):
+				fValue = 0.0
+				for strKey in listKey:
+					fValue=fValue + string.atof(dictRead[strKey][i])
+				listValue.append(round(fValue, 1))
+			dict = {}
+			dict["name"] = strName+"_DiskIOPS"
+			dict["data"] = listValue
+			listData.append(dict)
 		intEnd=100000
 		intStep=20000
 
